@@ -1,5 +1,6 @@
-//An import statement
+//Import statement
 const express = require("express");
+const Datastore = require("nedb");
 
 //Load express and save to a variable
 const app = express();
@@ -14,15 +15,24 @@ app.use(express.static("public"));
 //Recognize incoming request object as JSON
 app.use(express.json({ limit: "1mb" }));
 
+//Database
+const database = new Datastore("database.db");
+//loads on startup
+database.loadDatabase();
 //post request. Callback looks at info- sends response back
 //request holds all of the information about the particular client
 //response can send things back to the client
 app.post("/api", (request, response) => {
-  console.log(request.body);
   const data = request.body;
+  const timestamp = Date.now();
+  data.timestamp = timestamp;
+  //Rather than push- .insert
+  database.insert(data);
+  //sends object back to client
   response.json({
     status: "success",
     latitude: data.lat,
+    timestamp: timestamp,
     longitude: data.lon
   });
 });
