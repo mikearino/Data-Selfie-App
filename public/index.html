@@ -24,7 +24,7 @@
           const lon = position.coords.longitude;
           document.getElementById("longitude").textContent = lon;
           const foodIate = document.getElementById("food").value;
-
+          //send out a data object stringified to json
           const data = { lat, lon, foodIate };
           console.log(data);
           const options = {
@@ -40,16 +40,13 @@
         });
       };
     </script>
-
     <h1>Data Selfie App</h1>
-
     <p>
       latitude : <span id="latitude"></span>&deg;<br />
       longitude : <span id="longitude">&deg;</span>
     </p>
     <input id="food" type="text" value="What did you eat" />
     <input id="clickMe" type="submit" value="clickMe" onclick="runMe()" />
-
     <script src="" async defer></script>
   </body>
 </html>

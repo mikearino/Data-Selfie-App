@@ -19,6 +19,18 @@ app.use(express.json({ limit: "1mb" }));
 const database = new Datastore("database.db");
 //loads on startup
 database.loadDatabase();
+
+//get request grabs json object query from the database
+app.get("/api", (request, response) => {
+  database.find({}, (err, data) => {
+    if (err) {
+      response.end();
+      return;
+    }
+    response.json(data);
+  });
+});
+
 //post request. Callback looks at info- sends response back
 //request holds all of the information about the particular client
 //response can send things back to the client
