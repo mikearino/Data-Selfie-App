@@ -22,28 +22,27 @@
 
         let lat, lon;
         const button = document.getElementById("submit");
-        button.addEventListener =
-          ("click",
-          async event => {
-            const foodIate = document.getElementById("food").value;
-            //take the pixels-load it on to a canvas-convert to base64
-            video.loadPixels();
-            //Takes videos image and converts it to base 64
-            const image64 = video.canvas.toDataURL();
-            //send out a data object stringified to json
-            const data = { lat, lon, foodIate, image64 };
-            console.log(data);
-            const options = {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(data)
-            };
-            const response = await fetch("/api", options);
-            const json = await response.json();
-            console.log(json);
-          });
+        button.addEventListener("click", async event => {
+          const foodIate = document.getElementById("food").value;
+          console.log("wow");
+          //take the pixels-load it on to a canvas-convert to base64
+          video.loadPixels();
+          //Takes videos image and converts it to base 64
+          const image64 = video.canvas.toDataURL();
+          //send out a data object stringified to json
+          const data = { lat, lon, foodIate, image64 };
+          console.log(data);
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          };
+          const response = await fetch("/api", options);
+          const json = await response.json();
+          console.log(json);
+        });
 
         if ("geolocation" in navigator) {
           console.log("geolocation available");
